@@ -1,0 +1,89 @@
+name: github.com/opspec-pkgs/azure.apimanagement.api.create
+description: sets azure api management policies
+inputs:
+  subscriptionId:
+    string:
+      constraints: { minLength: 1 }
+      description: id of azure subscription
+  loginId:
+    string:
+      constraints: { minLength: 1 }
+      description: id of user, service principal, or app to login with
+  loginSecret:
+    string:
+      constraints: { minLength: 1 }
+      description: secret of user, service principal, or app to login with
+      isSecret: true
+  loginTenantId:
+    string:
+      constraints: { minLength: 1 }
+      description: tenant id of user, service principal, or app to login with
+  loginType:
+    string:
+      constraints: { enum: [user, sp]}
+      description: type of login; 'user' (default) or 'sp' for service principal
+      default: user
+  resourceGroup:
+    string:
+      constraints: { minLength: 1 }
+      description: name of azure resource group
+  apiManagementServiceName:
+    string:
+      constraints: { minLength: 1 }
+      description: name of the api management service
+  apiCredentialsIdentifier:
+    string:
+      constraints: { minLength: 1 }
+      description: the identifier for API management under security > credentials
+      default: integration
+  apiCredentialsKey:
+    string:
+      constraints: { minLength: 1 }
+      description: api management primary or secondary key under security > credentials
+      isSecret: true
+  accessTokenMinutesValid:
+    number:
+      constraints: { minimum: 1, format: integer }
+      description: the number of minutes the access token is valid
+      default: 60
+  contentType:
+    string:
+      constraints: { minLength: 1 }
+      description: expects a swagger file by default
+      default: 'application/vnd.swagger.doc+json'
+  apiDir:
+    dir:
+      description: |
+        apis to set provided in the form of the following conventional dir structure:
+          |--
+            |-- apis
+              |-- {api-name} # repeat as needed
+                |-- swagger.json
+        see [example](example)
+version: 1.0.0
+run:
+  serial:
+    - op:
+        pkg: { ref: github.com/opspec-pkgs/azure.apimanagement.sas-token.generate#1.0.0 }
+        inputs: 
+          id: $(apiCredentialsIdentifier)
+          key: $(apiCredentialsKey)
+          minutesValid: $(accessTokenMinutesValid)
+        outputs:
+          sasToken:
+    - container:
+        image: { ref: 'opspecpkgs/azure.apimanagement.apis.set:1.0.0' }
+        cmd: [node, /index.js ]
+        dirs: { /apiDir: apiDir, /apiMgmtApi.js }
+        files: { /index.js, }
+        envVars:
+          subscriptionId:
+          loginId:
+          loginSecret:
+          loginTenantId:
+          loginType:
+          resourceGroup:
+          apiManagementServiceName:
+          contentType:
+          sasToken:
+          
