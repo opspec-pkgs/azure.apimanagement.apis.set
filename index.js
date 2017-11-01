@@ -99,7 +99,7 @@ const processApiDir = async (credentials, dirPath) => {
  */
 const setApis = async (credentials) => {
     const promises = [];
-    const dirPath = '/apiDir';
+    const dirPath = '/apis';
     fs.readdirSync(dirPath).forEach(item => {
         const itemAbsPath = `${dirPath}/${item}`;
 
