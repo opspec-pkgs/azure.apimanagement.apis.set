@@ -1,5 +1,5 @@
-name: github.com/opspec-pkgs/azure.apimanagement.api.create
-description: sets azure api management policies
+name: github.com/opspec-pkgs/azure.apimanagement.apis.set
+description: sets azure api management apis
 inputs:
   subscriptionId:
     string:
@@ -51,14 +51,16 @@ inputs:
       constraints: { minLength: 1 }
       description: expects a swagger file by default
       default: 'application/vnd.swagger.doc+json'
-  apiDir:
+  apis:
     dir:
       description: |
         apis to set provided in the form of the following conventional dir structure:
+        ```
           |--
             |-- apis
               |-- {api-name} # repeat as needed
                 |-- swagger.json
+        ```
         see [example](example)
 version: 1.0.0
 run:
@@ -74,8 +76,8 @@ run:
     - container:
         image: { ref: 'opspecpkgs/azure.apimanagement.apis.set:1.0.0' }
         cmd: [node, /index.js ]
-        dirs: { /apiDir: apiDir, /apiMgmtApi.js }
-        files: { /index.js, }
+        dirs: { /apis: $(apis) }
+        files: { /index.js, /apiMgmtApi.js }
         envVars:
           subscriptionId:
           loginId:

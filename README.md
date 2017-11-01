@@ -4,7 +4,7 @@
 
 create/update azure api management apis.
 
-api are provided in the form of the following conventional dir structure:
+apis are provided in the form of the following conventional dir structure:
 ```text
   |--
     |-- apis
@@ -13,10 +13,13 @@ api are provided in the form of the following conventional dir structure:
 ```
 see [example](example)
 
-# Example usage
+# Format
 
-> note: in examples, VERSION represents a version of the
-> azure.apimanagement.apis.set pkg
+this version of the pkg is in
+[![opspec 0.1.5](https://img.shields.io/badge/opspec-0.1.5-brightgreen.svg?colorA=6b6b6b&colorB=fc16be)](https://opspec.io/0.1.5/packages.html)
+format
+
+# Example usage
 
 ## install
 
@@ -43,7 +46,7 @@ op:
     resourceGroup:
     apiManagementServiceName:
     apiCredentialsKey:
-    apiDir:
+    apis:
     # begin optional args
     apiCredentialsIdentifier:
     accessTokenMinutesValid:
