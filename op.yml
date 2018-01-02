@@ -75,7 +75,7 @@ run:
           variables: $(variables)
           templates: $(apis)
         outputs:
-          result: $(result)
+          result: result
     - op:
         pkg: { ref: github.com/opspec-pkgs/azure.apimanagement.sas-token.generate#1.0.0 }
         inputs: 
