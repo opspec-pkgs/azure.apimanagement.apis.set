@@ -62,9 +62,20 @@ inputs:
                 |-- swagger.json
         ```
         see [example](example)
+  variables:
+    object:
+      description: variables which, if referenced, will be replaced in template
+      default: {}
 version: 1.0.0
 run:
   serial:
+    - op:
+        pkg: { ref: github.com/opspec-pkgs/envsubst-dir#1.0.0 }
+        inputs:
+          variables: $(variables)
+          templates: $(apis)
+        outputs:
+          result: $(result)
     - op:
         pkg: { ref: github.com/opspec-pkgs/azure.apimanagement.sas-token.generate#1.0.0 }
         inputs: 
@@ -76,7 +87,7 @@ run:
     - container:
         image: { ref: 'opspecpkgs/azure.apimanagement.apis.set:1.0.0' }
         cmd: [node, /index.js ]
-        dirs: { /apis: $(apis) }
+        dirs: { /resources: $(result) }
         files: { /index.js, /apiMgmtApi.js }
         envVars:
           subscriptionId:
@@ -88,4 +99,3 @@ run:
           apiManagementServiceName:
           contentType:
           sasToken:
-          

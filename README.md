@@ -19,7 +19,9 @@ this version of the pkg is in
 [![opspec 0.1.5](https://img.shields.io/badge/opspec-0.1.5-brightgreen.svg?colorA=6b6b6b&colorB=fc16be)](https://opspec.io/0.1.5/packages.html)
 format
 
-# Example usage
+# setup
+
+Each API folder must contain a `swagger.json` and `api-properties.json` file (see 'examples' folder)
 
 ## install
 

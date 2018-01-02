@@ -51,7 +51,7 @@ const processApisDir = async (credentials, dirPath) => {
 };
 
 /**
- * Processes a /apiDir/apis/{api-name} dir
+ * Processes a /resources/apis/{api-name} dir
  * @param credentials
  * @param dirPath
  * @returns {Promise.<*>}
@@ -78,7 +78,15 @@ const processApiDir = async (credentials, dirPath) => {
 
             if (item === API_FILENAME) {
                 promises.push(
-                    apiMgmtApi.setApi(
+                    apiMgmtApi.updateApiProperties(
+                        credentials,
+                        apiRef,
+                        fs.readFileSync(itemAbsPath, 'utf8'),
+                        dirPath
+                    )
+                );
+                promises.push(
+                    apiMgmtApi.setApiSwagger(
                         credentials,
                         apiRef,
                         fs.readFileSync(itemAbsPath, 'utf8')
@@ -93,23 +101,18 @@ const processApiDir = async (credentials, dirPath) => {
 
 
 /**
- * Sets apiDir by walking the apiDir dir tree, conventionally applying discovered policy.xml files
+ * Sets apisDir by walking the /resources dir tree
  * @param credentials
  * @returns {Promise.<*>}
  */
 const setApis = async (credentials) => {
     const promises = [];
-    const dirPath = '/apis';
+    const dirPath = '/resources';
     fs.readdirSync(dirPath).forEach(item => {
         const itemAbsPath = `${dirPath}/${item}`;
 
-        switch (item) {
-            case 'apis':
-                promises.push(processApisDir(credentials, itemAbsPath));
-                break;
-            case API_FILENAME:
-                promises.push(apiMgmt.setApi(credentials, fs.readFileSync(itemAbsPath, 'utf8')));
-                break;
+        if (item === 'apis') {
+            promises.push(processApisDir(credentials, itemAbsPath));
         }
     });
     return Promise.all(promises);

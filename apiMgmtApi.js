@@ -5,7 +5,7 @@ const fs = require('fs');
 const uuidv4 = require('uuid/v4');
 
 class ApiMgmtApi {
-    async setApi(credentials, apiRef, apiContent) {
+    async setApiSwagger(credentials, apiRef, apiContent) {
         const url = new URL(
             `https://${process.env.apiManagementServiceName}.management.azure-api.net/` +
             `apis/${apiRef.id}/` +
@@ -72,6 +72,7 @@ class ApiMgmtApi {
     async createApi(credentials, apiName, dirPath) {
         let newApiId = uuidv4().replace(/-/g, "").slice(8)
         let swaggerFile = JSON.parse(fs.readFileSync(`${dirPath}/swagger.json`, 'utf8'))
+        let apiPropertiesFile = JSON.parse(fs.readFileSync(`${dirPath}/api-properties.json`, 'utf8'))
 
         const url = new URL(
             `https://${process.env.apiManagementServiceName}.management.azure-api.net/` +
@@ -80,7 +81,7 @@ class ApiMgmtApi {
         
         const azureServiceClient = new msRestAzure.AzureServiceClient(credentials);
         const data = {
-            "serviceUrl": `https://${process.env.apiManagementServiceName}.management.azure-api.net`,
+            "serviceUrl": `${apiPropertiesFile.WebServiceUrlPrefix}://${swaggerFile.host}`,
             "path": swaggerFile.basePath,
             "protocols": swaggerFile.schemes,
             "name": swaggerFile.info.title,
@@ -99,11 +100,48 @@ class ApiMgmtApi {
 
         const result = await axios(options)
         .catch(function (error) {
-            throw new Error(`error creating api '${apiName}'`);
+            throw new Error(`error creating api '${apiName}'; error message: ${error.response.data.error.details[0].message}`);
         });
 
         let operationId;
         return operationId = result.data.id.substr(6);
+    };
+
+    async updateApiProperties(credentials, apiRef, apiContent, dirPath) {
+        let swaggerFile = JSON.parse(apiContent)
+        let apiPropertiesFile = JSON.parse(fs.readFileSync(`${dirPath}/api-properties.json`, 'utf8'))
+
+        const url = new URL(
+            `https://${process.env.apiManagementServiceName}.management.azure-api.net/` +
+            `apis/${apiRef.id}/` +
+            `?api-version=2017-03-01`);
+        
+        const azureServiceClient = new msRestAzure.AzureServiceClient(credentials);
+        const data = {
+            "serviceUrl": `${apiPropertiesFile.WebServiceUrlPrefix}://${swaggerFile.host}`,
+            "path": swaggerFile.basePath,
+            "protocols": swaggerFile.schemes,
+            "name": swaggerFile.info.title,
+            "description": swaggerFile.info.description
+        }
+        const headers = {};
+        headers['Authorization'] = `${process.env.sasToken}`;
+        headers['Content-Type'] = `application/json`;
+        headers['If-Match'] = '*';
+        
+        let options = {
+            method: 'PATCH',
+            url: url.href,
+            headers,
+            data: data
+        };
+
+        const result = await axios(options)
+        .catch(function (error) {
+            throw new Error(`error updating properties for api '${apiRef.name}'; error message: ${error.response.data.error.details[0].message}`);
+        });
+
+        console.log(`update properties for api '${apiRef.name}' successfully`);
     };
 }
 

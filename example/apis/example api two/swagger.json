@@ -5,9 +5,9 @@
         "description": "example api two description",
         "version": "1.0"
     },
-    "host": "example-api-two.com",
+    "host": "$example-api-two-host",
     "basePath": "/example-api-two",
-    "schemes": ["https"],
+    "schemes": ["http","https"],
     "paths": {
         "/operation1": {
             "get": {
