@@ -72,7 +72,6 @@ class ApiMgmtApi {
     async createApi(credentials, apiName, dirPath) {
         let newApiId = uuidv4().replace(/-/g, "").slice(8)
         let swaggerFile = JSON.parse(fs.readFileSync(`${dirPath}/swagger.json`, 'utf8'))
-        let apiPropertiesFile = JSON.parse(fs.readFileSync(`${dirPath}/api-properties.json`, 'utf8'))
 
         const url = new URL(
             `https://${process.env.apiManagementServiceName}.management.azure-api.net/` +
@@ -81,7 +80,7 @@ class ApiMgmtApi {
         
         const azureServiceClient = new msRestAzure.AzureServiceClient(credentials);
         const data = {
-            "serviceUrl": `${apiPropertiesFile.WebServiceUrlPrefix}://${swaggerFile.host}`,
+            "serviceUrl": `${swaggerFile["x-webServiceScheme"]}://${swaggerFile.host}`,
             "path": swaggerFile.basePath,
             "protocols": swaggerFile.schemes,
             "name": swaggerFile.info.title,
@@ -109,7 +108,6 @@ class ApiMgmtApi {
 
     async updateApiProperties(credentials, apiRef, apiContent, dirPath) {
         let swaggerFile = JSON.parse(apiContent)
-        let apiPropertiesFile = JSON.parse(fs.readFileSync(`${dirPath}/api-properties.json`, 'utf8'))
 
         const url = new URL(
             `https://${process.env.apiManagementServiceName}.management.azure-api.net/` +
@@ -118,7 +116,7 @@ class ApiMgmtApi {
         
         const azureServiceClient = new msRestAzure.AzureServiceClient(credentials);
         const data = {
-            "serviceUrl": `${apiPropertiesFile.WebServiceUrlPrefix}://${swaggerFile.host}`,
+            "serviceUrl": `${swaggerFile["x-webServiceScheme"]}://${swaggerFile.host}`,
             "path": swaggerFile.basePath,
             "protocols": swaggerFile.schemes,
             "name": swaggerFile.info.title,

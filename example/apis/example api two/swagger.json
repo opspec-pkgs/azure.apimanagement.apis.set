@@ -5,6 +5,7 @@
         "description": "example api two description",
         "version": "1.0"
     },
+    "x-webServiceScheme": "http",
     "host": "$example-api-two-host",
     "basePath": "/example-api-two",
     "schemes": ["http","https"],

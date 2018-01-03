@@ -21,7 +21,7 @@ format
 
 # setup
 
-Each API folder must contain a `swagger.json` and `api-properties.json` file (see 'examples' folder)
+Each API folder must contain a `swagger.json` and requires the swagger extension `"x-webServiceScheme": "<scheme>"` entry (see 'examples' folder).
 
 ## install
 
