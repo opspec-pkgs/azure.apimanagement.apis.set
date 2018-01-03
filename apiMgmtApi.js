@@ -3,6 +3,7 @@ const {URL} = require('url');
 const axios = require('axios');
 const fs = require('fs');
 const uuidv4 = require('uuid/v4');
+const jsYaml = require('js-yaml');
 
 class ApiMgmtApi {
     async setApiSwagger(credentials, apiRef, apiContent) {
@@ -71,7 +72,7 @@ class ApiMgmtApi {
 
     async createApi(credentials, apiName, dirPath) {
         let newApiId = uuidv4().replace(/-/g, "").slice(8)
-        let swaggerFile = JSON.parse(fs.readFileSync(`${dirPath}/swagger.json`, 'utf8'))
+        let swaggerFile = jsYaml.safeLoad(fs.readFileSync(`${dirPath}/swagger.json`, 'utf8'))
 
         const url = new URL(
             `https://${process.env.apiManagementServiceName}.management.azure-api.net/` +
@@ -107,7 +108,7 @@ class ApiMgmtApi {
     };
 
     async updateApiProperties(credentials, apiRef, apiContent, dirPath) {
-        let swaggerFile = JSON.parse(apiContent)
+        let swaggerFile = jsYaml.safeLoad(apiContent)
 
         const url = new URL(
             `https://${process.env.apiManagementServiceName}.management.azure-api.net/` +
