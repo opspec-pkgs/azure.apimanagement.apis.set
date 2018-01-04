@@ -54,6 +54,7 @@ op:
     accessTokenMinutesValid:
     contentType:
     loginType:
+    variables:
     # end optional args
 ```
 
