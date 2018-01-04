@@ -1,3 +1,3 @@
 FROM node:8.1.0-alpine
 
-RUN npm install ms-rest-azure axios uuid
+RUN npm install ms-rest-azure axios uuid js-yaml
