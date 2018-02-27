@@ -5,7 +5,17 @@
 
 Sets Azure API Management apis
 
-Setup: Each API folder must contain a `swagger.json` and requires the swagger extension `"x-basePath": "<path>"` entry (see 'examples' folder).
+Apis MUST be provided in the form of the following conventional dir structure:
+```text
+  |--
+    |-- apis
+      |-- {api-name} # repeat as needed
+        |-- swagger.json
+```
+> Each `{api-name}` folder MUST contain a `swagger.json` and requires `"x-basePath": "<path>"` extension definition at
+> the root level. 
+  
+see [example](example).
 
 
 # Format
