@@ -1,5 +1,18 @@
 name: github.com/opspec-pkgs/azure.apimanagement.apis.set
-description: sets azure api management apis
+description: |
+  Sets Azure API Management apis
+
+  Apis MUST be provided in the form of the following conventional dir structure:
+  ```text
+    |--
+      |-- apis
+        |-- {api-name} # repeat as needed
+          |-- swagger.json
+  ```
+  > Each `{api-name}` folder MUST contain a `swagger.json` and requires `"x-basePath": "<path>"` extension definition at
+  > the root level. 
+    
+  see [example](example).
 inputs:
   subscriptionId:
     string:
@@ -66,7 +79,7 @@ inputs:
     object:
       description: variables which, if referenced, will be replaced in template
       default: {}
-version: 1.0.1
+version: 1.0.2
 run:
   serial:
     - op:
@@ -77,7 +90,7 @@ run:
         outputs:
           result: result
     - op:
-        pkg: { ref: github.com/opspec-pkgs/azure.apimanagement.sas-token.generate#1.0.0 }
+        pkg: { ref: github.com/opspec-pkgs/azure.apimanagement.sas-token.generate#1.0.1 }
         inputs: 
           id: $(apiCredentialsIdentifier)
           key: $(apiCredentialsKey)
@@ -85,7 +98,7 @@ run:
         outputs:
           sasToken:
     - container:
-        image: { ref: 'opspecpkgs/azure.apimanagement.apis.set:1.0.1' }
+        image: { ref: 'opspecpkgs/azure.apimanagement.apis.set:1.0.2' }
         cmd: [node, /index.js ]
         dirs: { /resources: $(result) }
         files: { /index.js, /apiMgmtApi.js }
