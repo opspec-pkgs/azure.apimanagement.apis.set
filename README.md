@@ -1,61 +1,51 @@
 [![Build Status](https://travis-ci.org/opspec-pkgs/azure.apimanagement.apis.set.svg?branch=master)](https://travis-ci.org/opspec-pkgs/azure.apimanagement.apis.set)
 
+
 # Problem statement
 
-create/update azure api management apis.
+Sets Azure API Management apis
 
-apis are provided in the form of the following conventional dir structure:
-```text
-  |--
-    |-- apis
-      |-- {api-name} # repeat as needed
-        |-- swagger.json
-```
-see [example](example)
+Setup: Each API folder must contain a `swagger.json` and requires the swagger extension `"x-basePath": "<path>"` entry (see 'examples' folder).
+
 
 # Format
 
-this version of the pkg is in
-[![opspec 0.1.5](https://img.shields.io/badge/opspec-0.1.5-brightgreen.svg?colorA=6b6b6b&colorB=fc16be)](https://opspec.io/0.1.5/packages.html)
-format
+this version of the pkg is in [![opspec 0.1.5](https://img.shields.io/badge/opspec-0.1.5-brightgreen.svg?colorA=6b6b6b&colorB=fc16be)](https://opspec.io/0.1.5/packages.html) format
 
-# setup
+# Example usage
 
-Each API folder must contain a `swagger.json` and requires the swagger extension `"x-basePath": "<path>"` entry (see 'examples' folder).
-
-## install
+## Install
 
 ```shell
 opctl pkg install github.com/opspec-pkgs/azure.apimanagement.apis.set#1.0.2
 ```
 
-## run
+## Run
 
 ```
 opctl run github.com/opspec-pkgs/azure.apimanagement.apis.set#1.0.2
 ```
 
-## compose
+## Compose
 
 ```yaml
 op:
   pkg: { ref: github.com/opspec-pkgs/azure.apimanagement.apis.set#1.0.2 }
   inputs:
-    subscriptionId:
+    apiCredentialsKey:
+    apiManagementServiceName:
+    apis:
     loginId:
     loginSecret:
     loginTenantId:
     resourceGroup:
-    apiManagementServiceName:
-    apiCredentialsKey:
-    apis:
-    # begin optional args
-    apiCredentialsIdentifier:
+    subscriptionId:
+    # params w/ default
     accessTokenMinutesValid:
+    apiCredentialsIdentifier:
     contentType:
     loginType:
     variables:
-    # end optional args
 ```
 
 # Support

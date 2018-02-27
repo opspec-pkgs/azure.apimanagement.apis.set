@@ -1,25 +1,20 @@
 name: build
 description: builds the package
 inputs:
-  version:
-    string:
-      constraints: { format: semver }
-      default: 0.0.0
-  pkg:
+  srcDir:
     dir:
       default: .
 outputs:
-  imageTar:
-    file:
-      description: tar of the built image
+  srcDir:
+    dir: {}
 run:
   serial:
     - op:
         pkg: { ref: test }
-        inputs: { pkg }
+        inputs: { srcDir }
     - op:
-        pkg: { ref: github.com/opspec-pkgs/docker.image.build#2.0.0 }
+        pkg: { ref: github.com/opspec-pkgs/_.pkg.bootstrap#1.0.0 }
         inputs:
-          dockerfile: $(/Dockerfile)
-          imageName: 'opspecpkgs/azure.apimanagement.apis.set:$(version)'
-        outputs: { imageTar }
+          srcDir:
+        outputs:
+          srcDir:
