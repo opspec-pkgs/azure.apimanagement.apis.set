@@ -81,11 +81,9 @@ class ApiMgmtApi {
         
         const azureServiceClient = new msRestAzure.AzureServiceClient(credentials);
         const data = {
-            "serviceUrl": `${swaggerFile["x-webServiceScheme"]}://${swaggerFile.host}`,
-            "path": swaggerFile.basePath,
+            "path": `${swaggerFile["x-basePath"]}`,
             "protocols": swaggerFile.schemes,
-            "name": swaggerFile.info.title,
-            "description": swaggerFile.info.description
+            "name": swaggerFile.info.title
         }
         const headers = {};
         headers['Authorization'] = `${process.env.sasToken}`;
@@ -107,7 +105,7 @@ class ApiMgmtApi {
         return operationId = result.data.id.substr(6);
     };
 
-    async updateApiProperties(credentials, apiRef, apiContent, dirPath) {
+    async updateApiPath(credentials, apiRef, apiContent, dirPath) {
         let swaggerFile = jsYaml.safeLoad(apiContent)
 
         const url = new URL(
@@ -117,11 +115,7 @@ class ApiMgmtApi {
         
         const azureServiceClient = new msRestAzure.AzureServiceClient(credentials);
         const data = {
-            "serviceUrl": `${swaggerFile["x-webServiceScheme"]}://${swaggerFile.host}`,
-            "path": swaggerFile.basePath,
-            "protocols": swaggerFile.schemes,
-            "name": swaggerFile.info.title,
-            "description": swaggerFile.info.description
+            "path": `${swaggerFile["x-basePath"]}`
         }
         const headers = {};
         headers['Authorization'] = `${process.env.sasToken}`;
@@ -137,10 +131,10 @@ class ApiMgmtApi {
 
         const result = await axios(options)
         .catch(function (error) {
-            throw new Error(`error updating properties for api '${apiRef.name}'; error message: ${error.response.data.error.details[0].message}`);
+            throw new Error(`error updating url suffix(path) for api '${apiRef.name}'; error message: ${error.response.data.error.details[0].message}`);
         });
 
-        console.log(`update properties for api '${apiRef.name}' successfully`);
+        console.log(`update url suffix(path) for api '${apiRef.name}' successfully`);
     };
 }
 

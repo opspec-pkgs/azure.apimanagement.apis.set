@@ -10,3 +10,8 @@ All notable changes will be documented in this file in accordance with
 ## \[1.0.1] - 2018-1-1
 
 add ability to substitute api service url via `variables` object input and `x-webServiceScheme` swagger extension.
+
+## \[1.0.2] - 2018-2-27
+
+remove substitute api service url `x-webServiceScheme` in favor of swagger file applying these settings.
+add ability to define api url suffix by adding `x-basePath` to any swagger file. 

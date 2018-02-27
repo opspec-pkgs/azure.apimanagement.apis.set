@@ -66,7 +66,7 @@ inputs:
     object:
       description: variables which, if referenced, will be replaced in template
       default: {}
-version: 1.0.1
+version: 1.0.2
 run:
   serial:
     - op:
@@ -77,7 +77,7 @@ run:
         outputs:
           result: result
     - op:
-        pkg: { ref: github.com/opspec-pkgs/azure.apimanagement.sas-token.generate#1.0.0 }
+        pkg: { ref: github.com/opspec-pkgs/azure.apimanagement.sas-token.generate#1.0.1 }
         inputs: 
           id: $(apiCredentialsIdentifier)
           key: $(apiCredentialsKey)
@@ -85,7 +85,7 @@ run:
         outputs:
           sasToken:
     - container:
-        image: { ref: 'opspecpkgs/azure.apimanagement.apis.set:1.0.1' }
+        image: { ref: 'opspecpkgs/azure.apimanagement.apis.set:1.0.2' }
         cmd: [node, /index.js ]
         dirs: { /resources: $(result) }
         files: { /index.js, /apiMgmtApi.js }

@@ -21,25 +21,25 @@ format
 
 # setup
 
-Each API folder must contain a `swagger.json` and requires the swagger extension `"x-webServiceScheme": "<scheme>"` entry (see 'examples' folder).
+Each API folder must contain a `swagger.json` and requires the swagger extension `"x-basePath": "<path>"` entry (see 'examples' folder).
 
 ## install
 
 ```shell
-opctl pkg install github.com/opspec-pkgs/azure.apimanagement.apis.set#1.0.1
+opctl pkg install github.com/opspec-pkgs/azure.apimanagement.apis.set#1.0.2
 ```
 
 ## run
 
 ```
-opctl run github.com/opspec-pkgs/azure.apimanagement.apis.set#1.0.1
+opctl run github.com/opspec-pkgs/azure.apimanagement.apis.set#1.0.2
 ```
 
 ## compose
 
 ```yaml
 op:
-  pkg: { ref: github.com/opspec-pkgs/azure.apimanagement.apis.set#1.0.1 }
+  pkg: { ref: github.com/opspec-pkgs/azure.apimanagement.apis.set#1.0.2 }
   inputs:
     subscriptionId:
     loginId:

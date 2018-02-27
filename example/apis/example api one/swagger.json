@@ -5,9 +5,8 @@
         "description": "example api one description",
         "version": "1.0"
     },
-    "x-webServiceScheme": "https",
     "host": "${EXAMPLE_API_ONE_HOST}",
-    "basePath": "/example-api-one",
+    "x-basePath": "/example-api-one",
     "schemes": ["https"],
     "paths": {
         "/operation1": {

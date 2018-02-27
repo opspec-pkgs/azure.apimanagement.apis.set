@@ -57,8 +57,6 @@ const processApisDir = async (credentials, dirPath) => {
  * @returns {Promise.<*>}
  */
 const processApiDir = async (credentials, dirPath) => {
-    const promises = [];
-
     const items = fs.readdirSync(dirPath);
 
     if (items.length > 0) {
@@ -72,31 +70,16 @@ const processApiDir = async (credentials, dirPath) => {
             name: apiName,
         };
 
-        items.forEach(item => {
+        items.forEach(async item => {
             const itemAbsPath = `${dirPath}/${item}`;
             const itemStat = fs.statSync(itemAbsPath);
 
             if (item === API_FILENAME) {
-                promises.push(
-                    apiMgmtApi.updateApiProperties(
-                        credentials,
-                        apiRef,
-                        fs.readFileSync(itemAbsPath, 'utf8'),
-                        dirPath
-                    )
-                );
-                promises.push(
-                    apiMgmtApi.setApiSwagger(
-                        credentials,
-                        apiRef,
-                        fs.readFileSync(itemAbsPath, 'utf8')
-                    )
-                );
+                await apiMgmtApi.setApiSwagger(credentials, apiRef, fs.readFileSync(itemAbsPath, 'utf8'));
+                await apiMgmtApi.updateApiPath(credentials, apiRef, fs.readFileSync(itemAbsPath, 'utf8'), dirPath);
             }
         });
     }
-
-    return Promise.all(promises);
 };
 
 
