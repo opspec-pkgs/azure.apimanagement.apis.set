@@ -1,5 +1,8 @@
 name: github.com/opspec-pkgs/azure.apimanagement.apis.set
-description: sets azure api management apis
+description: |
+  Sets Azure API Management apis
+
+  Setup: Each API folder must contain a `swagger.json` and requires the swagger extension `"x-basePath": "<path>"` entry (see 'examples' folder).
 inputs:
   subscriptionId:
     string:
