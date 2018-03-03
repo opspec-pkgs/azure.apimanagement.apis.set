@@ -1,5 +1,6 @@
 [![Build Status](https://travis-ci.org/opspec-pkgs/azure.apimanagement.apis.set.svg?branch=master)](https://travis-ci.org/opspec-pkgs/azure.apimanagement.apis.set)
 
+<img src="icon.svg" alt="icon" height="100px">
 
 # Problem statement
 
@@ -42,19 +43,19 @@ opctl run github.com/opspec-pkgs/azure.apimanagement.apis.set#1.0.2
 op:
   pkg: { ref: github.com/opspec-pkgs/azure.apimanagement.apis.set#1.0.2 }
   inputs:
-    apiCredentialsKey:
-    apiManagementServiceName:
-    apis:
+    subscriptionId:
     loginId:
     loginSecret:
     loginTenantId:
     resourceGroup:
-    subscriptionId:
+    apiManagementServiceName:
+    apiCredentialsKey:
+    apis:
     # params w/ default
-    accessTokenMinutesValid:
-    apiCredentialsIdentifier:
-    contentType:
     loginType:
+    apiCredentialsIdentifier:
+    accessTokenMinutesValid:
+    contentType:
     variables:
 ```
 
