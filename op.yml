@@ -83,14 +83,14 @@ version: 1.1.0
 run:
   serial:
     - op:
-        pkg: { ref: github.com/opspec-pkgs/envsubst-dir#1.0.0 }
+        pkg: { ref: github.com/opspec-pkgs/envsubst-dir#1.1.0 }
         inputs:
           variables: $(variables)
           templates: $(apis)
         outputs:
           result: result
     - op:
-        pkg: { ref: github.com/opspec-pkgs/azure.apimanagement.sas-token.generate#1.0.1 }
+        pkg: { ref: github.com/opspec-pkgs/azure.apimanagement.sas-token.generate#1.1.0 }
         inputs: 
           id: $(apiCredentialsIdentifier)
           key: $(apiCredentialsKey)
