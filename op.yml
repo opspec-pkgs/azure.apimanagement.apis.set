@@ -79,7 +79,7 @@ inputs:
     object:
       description: variables which, if referenced, will be replaced in template
       default: {}
-version: 1.1.0
+version: 1.1.1
 run:
   serial:
     - op:
@@ -98,7 +98,7 @@ run:
         outputs:
           sasToken:
     - container:
-        image: { ref: 'opspecpkgs/azure.apimanagement.apis.set:1.1.0' }
+        image: { ref: 'opspecpkgs/azure.apimanagement.apis.set:1.1.1' }
         cmd: [node, /index.js ]
         dirs:
           /resources: $(result)

@@ -28,21 +28,22 @@ the op uses [![opspec 0.1.5](https://img.shields.io/badge/opspec-0.1.5-brightgre
 ## Install
 
 ```shell
-opctl op install github.com/opspec-pkgs/azure.apimanagement.apis.set#1.1.0
+opctl op install github.com/opspec-pkgs/azure.apimanagement.apis.set#1.1.1
 ```
 
 ## Run
 
 ```
-opctl run github.com/opspec-pkgs/azure.apimanagement.apis.set#1.1.0
+opctl run github.com/opspec-pkgs/azure.apimanagement.apis.set#1.1.1
 ```
 
 ## Compose
 
 ```yaml
 op:
-  ref: github.com/opspec-pkgs/azure.apimanagement.apis.set#1.1.0
+  ref: github.com/opspec-pkgs/azure.apimanagement.apis.set#1.1.1
   inputs:
+    # required
     apiCredentialsKey:
     apiManagementServiceName:
     apis:
@@ -51,12 +52,12 @@ op:
     loginTenantId:
     resourceGroup:
     subscriptionId:
-    # params w/ default
-    accessTokenMinutesValid:
-    apiCredentialsIdentifier:
-    contentType:
-    loginType:
-    variables:
+    ### optional; uncomment to override default(s)
+    # accessTokenMinutesValid: 60
+    # apiCredentialsIdentifier: integration
+    # contentType: application/vnd.swagger.doc+json
+    # loginType: user
+    # variables: [object Object]
 ```
 
 # Support
