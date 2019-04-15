@@ -63,7 +63,7 @@ const processApiDir = async (credentials, dirPath) => {
         const apiName = path.basename(dirPath);
         let opId = await apiMgmtApi.getIdByName(credentials, apiName);
         if(!opId) {
-            opId = await apiMgmtApi.createApi(credentials, apiName, dirPath)
+            opId = await apiMgmtApi.createApi(apiName, dirPath)
         }
         const apiRef = {
             id: opId,
@@ -72,11 +72,10 @@ const processApiDir = async (credentials, dirPath) => {
 
         items.forEach(async item => {
             const itemAbsPath = `${dirPath}/${item}`;
-            const itemStat = fs.statSync(itemAbsPath);
 
             if (item === API_FILENAME) {
-                await apiMgmtApi.setApiSwagger(credentials, apiRef, fs.readFileSync(itemAbsPath, 'utf8'));
-                await apiMgmtApi.updateApiPath(credentials, apiRef, fs.readFileSync(itemAbsPath, 'utf8'), dirPath);
+                await apiMgmtApi.setApiSwagger(apiRef, fs.readFileSync(itemAbsPath, 'utf8'));
+                await apiMgmtApi.updateApiPath(apiRef, fs.readFileSync(itemAbsPath, 'utf8'));
             }
         });
     }
