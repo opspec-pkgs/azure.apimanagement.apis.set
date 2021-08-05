@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/opspec-pkgs/azure.apimanagement.apis.set.svg?branch=master)](https://travis-ci.org/opspec-pkgs/azure.apimanagement.apis.set)
+[![Build Status](https://github.com/opspec-pkgs/azure.apimanagement.apis.set/workflows/build/badge.svg?branch=main)](https://github.com/opspec-pkgs/azure.apimanagement.apis.set/actions?query=workflow%3Abuild+branch%3Amain)
 
 <img src="icon.svg" alt="icon" height="100px">
 
@@ -19,51 +19,46 @@ Apis MUST be provided in the form of the following conventional dir structure:
 see [example](example).
 
 
-# Format
-
-the op uses [![opspec 0.1.5](https://img.shields.io/badge/opspec-0.1.5-brightgreen.svg?colorA=6b6b6b&colorB=fc16be)](https://opspec.io/0.1.5) definition format
-
 # Example usage
 
-## Install
+## Visualize
 
 ```shell
-opctl op install github.com/opspec-pkgs/azure.apimanagement.apis.set#1.1.1
+opctl ui github.com/opspec-pkgs/azure.apimanagement.apis.set#2.0.0
 ```
 
 ## Run
 
 ```
-opctl run github.com/opspec-pkgs/azure.apimanagement.apis.set#1.1.1
+opctl run github.com/opspec-pkgs/azure.apimanagement.apis.set#2.0.0
 ```
 
 ## Compose
 
 ```yaml
 op:
-  ref: github.com/opspec-pkgs/azure.apimanagement.apis.set#1.1.1
+  ref: github.com/opspec-pkgs/azure.apimanagement.apis.set#2.0.0
   inputs:
-    # required
-    apiCredentialsKey:
-    apiManagementServiceName:
-    apis:
-    loginId:
-    loginSecret:
-    loginTenantId:
-    resourceGroup:
-    subscriptionId:
-    ### optional; uncomment to override default(s)
-    # accessTokenMinutesValid: 60
-    # apiCredentialsIdentifier: integration
-    # contentType: application/vnd.swagger.doc+json
-    # loginType: user
-    # variables: [object Object]
+    apiCredentialsKey:  # 👈 required; provide a value
+    apiManagementServiceName:  # 👈 required; provide a value
+    apis:  # 👈 required; provide a value
+    loginId:  # 👈 required; provide a value
+    loginSecret:  # 👈 required; provide a value
+    loginTenantId:  # 👈 required; provide a value
+    resourceGroup:  # 👈 required; provide a value
+    subscriptionId:  # 👈 required; provide a value
+  ## uncomment to override defaults
+  #   accessTokenMinutesValid: 60
+  #   apiCredentialsIdentifier: "integration"
+  #   contentType: "application/vnd.swagger.doc+json"
+  #   loginType: "user"
+  #   variables: [object Object]
 ```
 
 # Support
 
 join us on
-[![Slack](https://opctl-slackin.herokuapp.com/badge.svg)](https://opctl-slackin.herokuapp.com/)
+[![Slack](https://img.shields.io/badge/slack-opctl-E01563.svg)](https://join.slack.com/t/opctl/shared_invite/zt-51zodvjn-Ul_UXfkhqYLWZPQTvNPp5w)
 or
 [open an issue](https://github.com/opspec-pkgs/azure.apimanagement.apis.set/issues)
 
@@ -77,4 +72,4 @@ and [tagged](https://git-scm.com/book/en/v2/Git-Basics-Tagging); see
 # Contributing
 
 see
-[project/CONTRIBUTING.md](https://github.com/opspec-pkgs/project/blob/master/CONTRIBUTING.md)
+[project/CONTRIBUTING.md](https://github.com/opspec-pkgs/project/blob/main/CONTRIBUTING.md)
